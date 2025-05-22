@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SILACORP - Cursos de Brigadas de Emergencia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Estilos Generales para el cuerpo y el contenedor principal */
+        body {
+            font-family: 'Inter', sans-serif; /* Usando Inter como tipografía principal */
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8; /* Fondo gris claro */
+            color: #333; /* Texto principal gris oscuro */
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff; /* Fondo blanco para el contenido */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
+            border-radius: 8px; /* Bordes redondeados */
+        }
+
+        /* Estilos del Encabezado */
+        header {
+            background-color: #e00000; /* Rojo principal de la marca */
+            color: #fff; /* Texto blanco */
+            padding: 20px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0; /* Bordes redondeados en la parte superior */
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3.5em; /* Tipografía grande y llamativa */
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .logo {
+            margin-bottom: 15px;
+        }
+
+        .logo img {
+            max-width: 150px;
+            height: auto;
+            border-radius: 50%; /* Logo circular */
+            border: 5px solid #fff; /* Borde blanco alrededor del logo */
+        }
+
+        /* Estilos para las Secciones de contenido */
+        section {
+            padding: 20px 0;
+            border-bottom: 1px solid #eee; /* Separador entre secciones */
+        }
+
+        section:last-of-type {
+            border-bottom: none; /* No hay separador en la última sección */
+        }
+
+        h2 {
+            color: #e00000; /* Rojo para los títulos de sección */
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 2.2em;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: #e00000; /* Línea decorativa debajo de los títulos */
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .info-block {
+            display: flex;
+            flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+            justify-content: space-around;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .info-item {
+            flex: 1;
+            min-width: 280px; /* Ancho mínimo para cada bloque de información */
+            margin: 15px;
+            padding: 20px;
+            background-color: #fdfdfd;
+            border: 1px solid #ddd;
+            border-radius: 8px; /* Bordes redondeados */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease; /* Efecto de hover suave */
+        }
+
+        .info-item:hover {
+            transform: translateY(-5px); /* Pequeño levantamiento al pasar el ratón */
+        }
+
+        .info-item h3 {
+            color: #c00000; /* Rojo más oscuro para subtítulos */
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+
+        /* Estilos del Formulario de Inscripción */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="date"],
+        .form-group input[type="email"],
+        .form-group select,
+        .form-group textarea {
+            width: calc(100% - 22px); /* Ancho completo menos padding */
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px; /* Bordes redondeados */
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="date"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #e00000; /* Borde rojo al enfocar */
+            outline: none;
+        }
+
+        .form-group textarea {
+            resize: vertical; /* Permite redimensionar verticalmente */
+            min-height: 90px;
+        }
+
+        button {
+            background-color: #e00000; /* Botones rojos */
+            color: white;
+            padding: 14px 25px;
+            border: none;
+            border-radius: 6px; /* Bordes redondeados */
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-right: 15px; /* Espacio entre botones */
+        }
+
+        button:hover {
+            background-color: #c00000; /* Rojo más oscuro al pasar el ratón */
+            transform: translateY(-2px); /* Pequeño levantamiento al pasar el ratón */
+        }
+
+        button:active {
+            transform: translateY(0); /* Vuelve a su posición original al hacer click */
+        }
+
+        #message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            display: none; /* Oculto por defecto, se muestra con JS */
+        }
+
+        .success {
+            background-color: #d4edda; /* Verde claro para mensajes de éxito */
+            color: #155724; /* Texto verde oscuro */
+            border: 1px solid #c3e6cb;
+        }
+
+        /* Estilos del Pie de Página */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            background-color: #333; /* Fondo gris oscuro */
+            color: #fff; /* Texto blanco */
+            border-radius: 0 0 8px 8px; /* Bordes redondeados en la parte inferior */
+            margin-top: 30px;
+        }
+
+        .social-links a {
+            color: #fff; /* Iconos blancos */
+            font-size: 2.2em;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #e00000; /* Rojo al pasar el ratón */
+        }
+
+        .whatsapp-button {
+            display: inline-block;
+            background-color: #25d366; /* Verde WhatsApp */
+            color: white;
+            padding: 12px 20px;
+            border-radius: 30px; /* Botón redondeado */
+            text-decoration: none;
+            font-size: 1.1em;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .whatsapp-button i {
+            margin-right: 8px;
+        }
+
+        .whatsapp-button:hover {
+            background-color: #1da851; /* Verde más oscuro al pasar el ratón */
+        }
+
+        /* Diseño Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5em;
+            }
+
+            h2 {
+                font-size: 1.8em;
+            }
+
+            .info-block {
+                flex-direction: column; /* Apila los bloques de información en pantallas pequeñas */
+                align-items: center;
+            }
+
+            .info-item {
+                margin: 15px 0;
+                width: 90%; /* Ocupa casi todo el ancho */
+            }
+
+            .form-group input[type="text"],
+            .form-group input[type="date"],
+            .form-group input[type="email"],
+            .form-group select,
+            .form-group textarea {
+                width: calc(100% - 20px); /* Ajuste de ancho para inputs */
+            }
+
+            button {
+                width: 100%; /* Botones ocupan todo el ancho */
+                margin-bottom: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .logo img {
+                max-width: 100px;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            .social-links a {
+                font-size: 1.8em;
+                margin: 0 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <!-- Espacio para la imagen del logo de la marca.
+                 Reemplaza el 'src' con el link de tu logo de GitHub o cualquier otro CDN. -->
+            <img src="https://placehold.co/150x150/e00000/ffffff?text=SILACORP+Logo" alt="SILACORP Logo">
+        </div>
+        <h1>ORGANIZACIÓN SILACORP</h1>
+        <p>Expertos en Capacitación para Brigadas de Emergencia</p>
+    </header>
+
+    <div class="container">
+        <section id="about">
+            <h2>Quiénes Somos</h2>
+            <div class="info-block">
+                <div class="info-item">
+                    <h3>Misión</h3>
+                    <p>Capacitar y formar brigadas de emergencia altamente competentes, preparadas para responder eficazmente ante cualquier eventualidad, salvaguardando vidas y bienes, y fomentando una cultura de prevención y seguridad en la sociedad.</p>
+                </div>
+                <div class="info-item">
+                    <h3>Visión</h3>
+                    <p>Ser la organización líder a nivel nacional en la formación de brigadas de emergencia, reconocida por la excelencia de sus programas, la innovación en sus metodologías y el impacto positivo en la resiliencia de las comunidades y empresas.</p>
+                </div>
+                <div class="info-item">
+                    <h3>Valores</h3>
+                    <ul>
+                        <li>**Compromiso:** Con la seguridad y el bienestar de las personas.</li>
+                        <li>**Excelencia:** En la calidad de nuestra enseñanza y servicio.</li>
+                        <li>**Responsabilidad:** En la formación de líderes y equipos preparados.</li>
+                        <li>**Integridad:** Actuando con ética y transparencia.</li>
+                        <li>**Innovación:** Mejorando constantemente nuestras técnicas y contenidos.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="courses">
+            <h2>Nuestros Cursos</h2>
+            <div class="info-block">
+                <div class="info-item">
+                    <h3>Brigada de Emergencias</h3>
+                    <p>Formación integral para equipos de respuesta ante diversas situaciones de riesgo: incendios, evacuaciones, primeros auxilios, y más.</p>
+                </div>
+                <div class="info-item">
+                    <h3>Primeros Auxilios</h3>
+                    <p>Capacitación esencial para brindar atención inicial a lesionados o enfermos, estabilizando la situación hasta la llegada de personal médico.</p>
+                </div>
+                <div class="info-item">
+                    <h3>Combate Contra Incendios</h3>
+                    <p>Conocimientos y técnicas para la prevención, control y extinción de incendios, utilizando equipos adecuados y estrategias seguras.</p>
+                </div>
+            </div>
+            <div class="info-block">
+                <div class="info-item">
+                    <h3>Objetivo del Curso</h3>
+                    <p>Dotar a los participantes de las habilidades teóricas y prácticas necesarias para actuar de manera organizada y eficiente en situaciones de emergencia, minimizando riesgos y salvaguardando vidas.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="enrollment">
+            <h2>Formulario de Inscripción</h2>
+            <form id="enrollmentForm">
+                <div class="form-group">
+                    <label for="nombre">Nombre Completo:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+                    <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="curso">Selecciona el curso:</label>
+                    <select id="curso" name="curso" required>
+                        <option value="">-- Selecciona un curso --</option>
+                        <option value="Brigada de Emergencias">Brigada de Emergencias</option>
+                        <option value="Primeros Auxilios">Primeros Auxilios</option>
+                        <option value="Combate Contra Incendios">Combate Contra Incendios</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="modalidad">Modalidad del curso:</label>
+                    <select id="modalidad" name="modalidad" required>
+                        <option value="">-- Selecciona una modalidad --</option>
+                        <option value="Presencial">Presencial</option>
+                        <option value="Virtual">Virtual</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefono">Teléfono (10 dígitos):</label>
+                    <input type="text" id="telefono" name="telefono" maxlength="10" pattern="\d{10}" title="Por favor, ingresa 10 dígitos numéricos" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="ciudad">Ciudad:</label>
+                    <input type="text" id="ciudad" name="ciudad" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="estado">Estado:</label>
+                    <select id="estado" name="estado" required>
+                        <option value="">-- Selecciona un estado --</option>
+                        <option value="Aguascalientes">Aguascalientes</option>
+                        <option value="Baja California">Baja California</option>
+                        <option value="Baja California Sur">Baja California Sur</option>
+                        <option value="Campeche">Campeche</option>
+                        <option value="Chiapas">Chiapas</option>
+                        <option value="Chihuahua">Chihuahua</option>
+                        <option value="Coahuila de Zaragoza">Coahuila de Zaragoza</option>
+                        <option value="Colima">Colima</option>
+                        <option value="Ciudad de México">Ciudad de México</option>
+                        <option value="Durango">Durango</option>
+                        <option value="Guanajuato">Guanajuato</option>
+                        <option value="Guerrero">Guerrero</option>
+                        <option value="Hidalgo">Hidalgo</option>
+                        <option value="Jalisco">Jalisco</option>
+                        <option value="México">México</option>
+                        <option value="Michoacán de Ocampo">Michoacán de Ocampo</option>
+                        <option value="Morelos">Morelos</option>
+                        <option value="Nayarit">Nayarit</option>
+                        <option value="Nuevo León">Nuevo León</option>
+                        <option value="Oaxaca">Oaxaca</option>
+                        <option value="Puebla">Puebla</option>
+                        <option value="Querétaro">Querétaro</option>
+                        <option value="Quintana Roo">Quintana Roo</option>
+                        <option value="San Luis Potosí">San Luis Potosí</option>
+                        <option value="Sinaloa">Sinaloa</option>
+                        <option value="Sonora">Sonora</option>
+                        <option value="Tabasco">Tabasco</option>
+                        <option value="Tamaulipas">Tamaulipas</option>
+                        <option value="Tlaxcala">Tlaxcala</option>
+                        <option value="Veracruz de Ignacio de la Llave">Veracruz de Ignacio de la Llave</option>
+                        <option value="Yucatán">Yucatán</option>
+                        <option value="Zacatecas">Zacatecas</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="comentarios">Comentarios:</label>
+                    <textarea id="comentarios" name="comentarios"></textarea>
+                </div>
+
+                <button type="submit" id="generarInscripcion">Generar Inscripción</button>
+                <button type="button" id="exportarRecibo">Exportar Recibo en PDF</button>
+
+                <div id="message"></div>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        <div class="social-links">
+            <!-- Iconos y vínculos a redes sociales.
+                 Asegúrate de reemplazar los 'href' con las URLs reales de SILACORP. -->
+            <a href="https://www.facebook.com/SILACORP" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/SILACORP" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@SILACORP" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://www.linkedin.com/company/SILACORP" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <a href="https://wa.me/5215512345678" class="whatsapp-button" target="_blank"><i class="fab fa-whatsapp"></i> Envíanos un WhatsApp</a>
+        <p>&copy; 2025 SILACORP. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const enrollmentForm = document.getElementById('enrollmentForm');
+            const messageDiv = document.getElementById('message');
+            const exportButton = document.getElementById('exportarRecibo');
+
+            // Función para limpiar todos los campos del formulario
+            const clearForm = () => {
+                enrollmentForm.reset();
+            };
+
+            // Manejador de eventos para el envío del formulario
+            enrollmentForm.addEventListener('submit', (e) => {
+                e.preventDefault(); // Previene el comportamiento por defecto de recargar la página
+
+                // Muestra el mensaje de éxito
+                messageDiv.textContent = '¡Te has inscrito correctamente!';
+                messageDiv.className = 'success'; // Aplica estilos de éxito
+                messageDiv.style.display = 'block'; // Hace visible el mensaje
+
+                // Limpia el formulario y oculta el mensaje después de 3 segundos
+                setTimeout(() => {
+                    clearForm();
+                    messageDiv.style.display = 'none';
+                }, 3000);
+            });
+
+            // Manejador de eventos para el botón de exportar a PDF
+            exportButton.addEventListener('click', () => {
+                // Obtiene la instancia de jsPDF desde la ventana
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF(); // Crea un nuevo documento PDF
+
+                // Obtiene los valores de los campos del formulario
+                const nombre = document.getElementById('nombre').value;
+                const fechaNacimiento = document.getElementById('fechaNacimiento').value;
+                const curso = document.getElementById('curso').value;
+                const modalidad = document.getElementById('modalidad').value;
+                const telefono = document.getElementById('telefono').value;
+                const email = document.getElementById('email').value;
+                const ciudad = document.getElementById('ciudad').value;
+                const estado = document.getElementById('estado').value;
+                const comentarios = document.getElementById('comentarios').value;
+
+                // Valida que los campos obligatorios no estén vacíos antes de exportar
+                if (!nombre || !fechaNacimiento || !curso || !modalidad || !telefono || !email || !ciudad || !estado) {
+                    // Muestra un mensaje de error si faltan campos
+                    messageDiv.textContent = 'Por favor, completa todos los campos requeridos antes de exportar el recibo.';
+                    messageDiv.className = 'error'; // Podrías definir una clase 'error' en CSS
+                    messageDiv.style.display = 'block';
+                    setTimeout(() => {
+                        messageDiv.style.display = 'none';
+                    }, 5000); // Oculta el mensaje de error después de 5 segundos
+                    return; // Detiene la ejecución de la función
+                }
+
+                // Configura el estilo del título del PDF
+                doc.setFontSize(22);
+                doc.setTextColor(224, 0, 0); // Color rojo para el título
+                doc.text('Recibo de Inscripción - SILACORP', 105, 20, null, null, 'center');
+
+                // Dibuja una línea debajo del título
+                doc.setDrawColor(224, 0, 0);
+                doc.line(20, 25, 190, 25);
+
+                // Configura el estilo del texto de los campos
+                doc.setFontSize(12);
+                doc.setTextColor(51, 51, 51); // Color gris oscuro para el texto
+
+                let y = 40; // Posición inicial vertical para los campos
+
+                // Función auxiliar para añadir campos al PDF
+                const addField = (label, value) => {
+                    doc.text(`${label}:`, 20, y);
+                    doc.setFont(undefined, 'bold'); // Texto en negrita para el valor
+                    doc.text(value, 80, y);
+                    doc.setFont(undefined, 'normal'); // Vuelve a normal para el siguiente label
+                    y += 7; // Incrementa la posición vertical
+                };
+
+                // Añade cada campo del formulario al PDF
+                addField('Nombre Completo', nombre);
+                addField('Fecha de Nacimiento', fechaNacimiento);
+                addField('Curso Inscrito', curso);
+                addField('Modalidad', modalidad);
+                addField('Teléfono', telefono);
+                addField('E-mail', email);
+                addField('Ciudad', ciudad);
+                addField('Estado', estado);
+
+                // Añade comentarios solo si existen
+                if (comentarios) {
+                    addField('Comentarios', comentarios);
+                }
+
+                // Añade un pie de página al PDF
+                doc.setFontSize(10);
+                doc.setTextColor(150, 150, 150); // Color gris claro para el pie de página
+                doc.text('Gracias por tu inscripción a SILACORP.', 105, doc.internal.pageSize.height - 20, null, null, 'center');
+                doc.text('Este es un recibo generado automáticamente.', 105, doc.internal.pageSize.height - 15, null, null, 'center');
+
+                // Guarda el documento PDF con un nombre específico
+                doc.save('recibo_inscripcion_SILACORP.pdf');
+            });
+        });
+    </script>
+</body>
+</html>
